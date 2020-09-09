@@ -1,0 +1,7 @@
+<resources>
+    <string name="app_name">IPTv Player Demo</string>
+    <string name="crash_text">Ups, please send us the error to give a solution as sun as possible, Thanks </string>
+    <string name="unable_fetch_data">Some errors occurred while trying to get the remote content. Let\'s use the example local data.</string>
+    <string name="search_query_hint">Title, channel, etc</string>
+
+</resources>

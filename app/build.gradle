@@ -1,0 +1,103 @@
+apply plugin: 'com.android.application'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'org.jmailen.kotlinter'
+apply plugin: 'kotlin-kapt'
+
+
+android {
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
+
+    defaultConfig {
+        applicationId "cu.wilb3r.iptvplayerdemo"
+        minSdkVersion 21
+        targetSdkVersion 29
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    packagingOptions {
+        exclude 'META-INF/*.kotlin_module'
+    }
+
+    buildFeatures {
+        viewBinding true
+    }
+
+    compileOptions {
+        sourceCompatibility JavaVersion.VERSION_1_8
+        targetCompatibility JavaVersion.VERSION_1_8
+    }
+    kotlinOptions {
+        jvmTarget = JavaVersion.VERSION_1_8.toString()
+    }
+}
+
+
+
+dependencies {
+    implementation fileTree(dir: "libs", include: ["*.jar"])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation 'androidx.core:core-ktx:1.3.1'
+    implementation 'androidx.appcompat:appcompat:1.2.0'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.1'
+    testImplementation 'junit:junit:4.13'
+    androidTestImplementation 'androidx.test.ext:junit:1.1.2'
+    androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+
+    implementation "com.google.android.material:material:$rootProject.material_version"
+
+    //acra
+    implementation "ch.acra:acra:$rootProject.acra_version"
+    // Koin for Android
+    implementation "org.koin:koin-android:$rootProject.koin_version"
+    // Koin Android ViewModel features
+    implementation "org.koin:koin-android-viewmodel:$rootProject.koin_version"
+    // Koin AndroidX Scope features
+    implementation "org.koin:koin-androidx-scope:$rootProject.koin_version"
+    // Koin AndroidX ViewModel features
+    implementation "org.koin:koin-androidx-viewmodel:$rootProject.koin_version"
+
+    //Permissions
+    implementation "com.github.quickpermissions:quickpermissions-kotlin:$rootProject.quickpermissions_version"
+
+    //Kotlin Coroutines
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
+
+    // ViewModel and LiveData
+    implementation "androidx.lifecycle:lifecycle-viewmodel:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-common:$rootProject.lifecycle_version"
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_version"
+
+    // Lifecycles only (without ViewModel or LiveData)
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+    //glide
+    implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
+    kapt "com.github.bumptech.glide:compiler:$rootProject.glide_version"
+
+    //Ktor
+    implementation "io.ktor:ktor-client-android:$rootProject.ktorclient_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.ktor_version"
+    implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.ktor_version"
+    // Ktor JVM(necessary for logging extension)
+    implementation "io.ktor:ktor-client-logging-jvm:1.2.5"
+    // Ktor Logging extension
+    implementation "io.ktor:ktor-client-logging:1.2.5"
+    // Necessary to show logs in logcat
+    implementation "ch.qos.logback:logback-classic:1.2.3"
+    // Exoplayer library
+    implementation 'com.google.android.exoplayer:exoplayer:2.10.4'
+
+
+}
