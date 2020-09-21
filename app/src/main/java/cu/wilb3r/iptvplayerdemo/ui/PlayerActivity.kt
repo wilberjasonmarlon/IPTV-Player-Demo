@@ -66,15 +66,18 @@ class PlayerActivity : AppCompatActivity(), PlaybackPreparer {
         binding.playerView.requestFocus()
 
         simpleExoPlayer.addListener( object : Player.EventListener{
-            override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters?) {
+            override fun onPlaybackParametersChanged(playbackParameters: PlaybackParameters) {
 
             }
 
-            override fun onTracksChanged(trackGroups: TrackGroupArray?, trackSelections: TrackSelectionArray?) {
+            override fun onTracksChanged(
+                trackGroups: TrackGroupArray,
+                trackSelections: TrackSelectionArray
+            ) {
 
             }
 
-            override fun onPlayerError(error: ExoPlaybackException?) {
+            override fun onPlayerError(error: ExoPlaybackException) {
                 snack(error?.message!!, binding.root)
             }
 
@@ -107,7 +110,7 @@ class PlayerActivity : AppCompatActivity(), PlaybackPreparer {
 
             }
 
-            override fun onTimelineChanged(timeline: Timeline?, manifest: Any?, reason: Int) {
+            override fun onTimelineChanged(timeline: Timeline, manifest: Any?, reason: Int) {
 
             }
         })

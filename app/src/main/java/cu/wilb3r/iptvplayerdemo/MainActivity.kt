@@ -7,7 +7,9 @@ import cu.wilb3r.iptvplayerdemo.databinding.ActivityMainBinding
 import cu.wilb3r.iptvplayerdemo.ui.fragments.FavFragment
 import cu.wilb3r.iptvplayerdemo.ui.fragments.HomeFragment
 import cu.wilb3r.iptvplayerdemo.ui.fragments.ProfileFragment
+import dagger.hilt.android.AndroidEntryPoint
 
+ @AndroidEntryPoint
  class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
 

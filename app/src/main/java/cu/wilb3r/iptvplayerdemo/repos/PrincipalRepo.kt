@@ -1,5 +1,6 @@
 package cu.wilb3r.iptvplayerdemo.repos
 
+import android.content.Context
 import android.os.Environment
 import androidx.core.content.FileProvider
 import androidx.lifecycle.LiveData
@@ -8,16 +9,18 @@ import cu.wilb3r.iptvplayerdemo.BuildConfig
 import cu.wilb3r.iptvplayerdemo.data.*
 import cu.wilb3r.iptvplayerdemo.utils.Coroutines
 import cu.wilb3r.iptvplayerdemo.utils.Event
-import cu.wilb3r.iptvplayerdemo.utils.globalContext
+import dagger.hilt.android.qualifiers.ApplicationContext
 import io.ktor.client.HttpClient
 import io.ktor.client.engine.android.Android
 import kotlinx.coroutines.flow.collect
 import java.io.*
 import java.util.*
+import javax.inject.Inject
 
-class PrincipalRepo() {
-    val file = File(globalContext.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "lista.m3u")
-    val uri = globalContext.let {
+class PrincipalRepo @Inject constructor(@ApplicationContext private val context: Context)  {
+
+    val file = File(context.getExternalFilesDir(Environment.DIRECTORY_DOWNLOADS), "lista.m3u")
+    val uri = context.let {
         FileProvider
             .getUriForFile(it, "${BuildConfig.APPLICATION_ID}.provider", file)
     }
@@ -44,7 +47,7 @@ class PrincipalRepo() {
                         }
                         is Result.Error -> {
                             _liveError.postValue(Event(result.message))
-                            BufferedReader(InputStreamReader(globalContext!!.assets.open("iptvsample")))
+                            BufferedReader(InputStreamReader(context.assets.open("iptvsample")))
                                 .readText().also {
                                     _liveData.postValue(M3UParser.parse(it))
                                 }

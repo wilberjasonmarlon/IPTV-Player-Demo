@@ -1,28 +1,21 @@
 package cu.wilb3r.iptvplayerdemo.ui.vm
 
+import androidx.hilt.lifecycle.ViewModelInject
 import androidx.lifecycle.ViewModel
+import androidx.lifecycle.viewModelScope
 import cu.wilb3r.iptvplayerdemo.repos.PrincipalRepo
-import cu.wilb3r.iptvplayerdemo.utils.Coroutines
-import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
-class HomeViewModel(
-    private val repo: PrincipalRepo
+class HomeViewModel  @ViewModelInject constructor (
+    val repo: PrincipalRepo
 ) : ViewModel() {
-    private var job: Job? = null
 
     val playListLiveData = repo.liveData
     val errorLiveData = repo.liveError
 
-    fun download(url: String) {
-
-        job = Coroutines.io {
-            repo.download(url)
-        }
+    fun download(url: String) = viewModelScope.launch {
+        repo.download(url)
     }
 
-    override fun onCleared() {
-        super.onCleared()
-        job?.cancel()
-    }
 
 }

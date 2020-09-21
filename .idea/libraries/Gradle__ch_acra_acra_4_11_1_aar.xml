@@ -1,9 +1,9 @@
 <component name="libraryTable">
   <library name="Gradle: ch.acra:acra:4.11.1@aar">
     <CLASSES>
-      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9053642aad4466ef9b729ecc8ed62652/jetified-acra-4.11.1/jars/classes.jar!/" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9053642aad4466ef9b729ecc8ed62652/jetified-acra-4.11.1/res" />
-      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/9053642aad4466ef9b729ecc8ed62652/jetified-acra-4.11.1/AndroidManifest.xml" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e6d3415ae60a3453d327160c99ce8c27/jetified-acra-4.11.1/res" />
+      <root url="jar://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e6d3415ae60a3453d327160c99ce8c27/jetified-acra-4.11.1/jars/classes.jar!/" />
+      <root url="file://$USER_HOME$/.gradle/caches/transforms-2/files-2.1/e6d3415ae60a3453d327160c99ce8c27/jetified-acra-4.11.1/AndroidManifest.xml" />
     </CLASSES>
     <JAVADOC>
       <root url="jar://$USER_HOME$/.gradle/caches/modules-2/files-2.1/ch.acra/acra/4.11.1/54c611b50e7437d24c7ca20a8282f61f03f6595/acra-4.11.1-javadoc.jar!/" />

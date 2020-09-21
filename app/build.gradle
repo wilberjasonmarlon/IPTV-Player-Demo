@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'org.jmailen.kotlinter'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'dagger.hilt.android.plugin'
+
 
 
 android {
@@ -38,6 +40,7 @@ android {
         sourceCompatibility JavaVersion.VERSION_1_8
         targetCompatibility JavaVersion.VERSION_1_8
     }
+
     kotlinOptions {
         jvmTarget = JavaVersion.VERSION_1_8.toString()
     }
@@ -57,6 +60,9 @@ dependencies {
 
     implementation "com.google.android.material:material:$rootProject.material_version"
 
+    // Timber
+    implementation "com.jakewharton.timber:timber:$timber_version"
+
     //acra
     implementation "ch.acra:acra:$rootProject.acra_version"
     // Koin for Android
@@ -75,13 +81,23 @@ dependencies {
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-android:$rootProject.coroutines"
     implementation "org.jetbrains.kotlinx:kotlinx-coroutines-core:$rootProject.coroutines"
 
+    //Hilt
+    implementation "com.google.dagger:hilt-android:2.28-alpha"
+    kapt "com.google.dagger:hilt-android-compiler:2.28-alpha"
+
+    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha02"
+    kapt "androidx.hilt:hilt-compiler:1.0.0-alpha02"
+
     // ViewModel and LiveData
     implementation "androidx.lifecycle:lifecycle-viewmodel:$rootProject.lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-common:$rootProject.lifecycle_version"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:$rootProject.lifecycle_version"
+    implementation "androidx.fragment:fragment-ktx:$fragment_version"
 
     // Lifecycles only (without ViewModel or LiveData)
     implementation "androidx.lifecycle:lifecycle-runtime-ktx:$lifecycle_version"
+
+
     //glide
     implementation "com.github.bumptech.glide:glide:$rootProject.glide_version"
     kapt "com.github.bumptech.glide:compiler:$rootProject.glide_version"
@@ -97,7 +113,7 @@ dependencies {
     // Necessary to show logs in logcat
     implementation "ch.qos.logback:logback-classic:1.2.3"
     // Exoplayer library
-    implementation 'com.google.android.exoplayer:exoplayer:2.10.4'
+    implementation 'com.google.android.exoplayer:exoplayer:2.12.0'
 
 
 }

@@ -13,10 +13,6 @@ import io.ktor.client.features.logging.Logging
 import org.koin.android.ext.koin.androidContext
 import org.koin.core.context.GlobalContext
 
-//
-val globalContext: Context
-    get() = GlobalContext.get().koin.rootScope.androidContext()
-
 fun initKtorClient() = HttpClient(Android) {
     install(Logging) {
         logger = Logger.ANDROID

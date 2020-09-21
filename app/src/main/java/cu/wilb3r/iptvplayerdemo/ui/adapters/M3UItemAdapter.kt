@@ -1,12 +1,12 @@
 package cu.wilb3r.iptvplayerdemo.ui.adapters
 
+import android.annotation.SuppressLint
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.ViewGroup
 import android.widget.Filter
 import android.widget.Filterable
 import androidx.recyclerview.widget.RecyclerView
-import androidx.swiperefreshlayout.widget.CircularProgressDrawable
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.engine.DiskCacheStrategy
 import cu.wilb3r.iptvplayerdemo.R
@@ -35,9 +35,10 @@ class M3UItemAdapter (
 
     inner class ViewHolder(val binding: ItemBinding):
         RecyclerView.ViewHolder(binding.root){
+        @SuppressLint("UseCompatLoadingForDrawables")
         fun bind(item: M3UItem) {
-            binding.title.text = "${item.mChannel}"
-            if(!item.mLogoURL.isNullOrBlank()){
+            binding.title.text = item.mChannel
+            if(!item.mLogoURL.isBlank()){
                 Glide.with(context)
                     .load(item.mLogoURL)
                     .diskCacheStrategy(DiskCacheStrategy.ALL)
