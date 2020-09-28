@@ -50,7 +50,9 @@ object M3UParser {
                     }
 
                     var title = meta.substring(meta.indexOfLast { it == ',' } + 1)
-                    playlist.m3UItems.add(M3UItem(duration!!, entry[1].trim(), logo, groupTitle, title))
+                    var m3u = M3UItem(duration!!, entry[1].trim(), logo, groupTitle, title)
+                    if(m3u != null)
+                        playlist.m3UItems.add(m3u)
                 } else {
                     playlist.m3UItems.add(M3UItem(0, entry[0].trim(), "", "No title", ""))
                 }

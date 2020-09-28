@@ -12,19 +12,19 @@ import cu.wilb3r.iptvplayerdemo.R
 import cu.wilb3r.iptvplayerdemo.data.M3UItem
 import cu.wilb3r.iptvplayerdemo.databinding.FragmentHomeBinding
 import cu.wilb3r.iptvplayerdemo.ui.PlayerActivity
-import cu.wilb3r.iptvplayerdemo.ui.adapters.M3UItemAdapter
+import cu.wilb3r.iptvplayerdemo.ui.adapters.ItemAdapter
 import cu.wilb3r.iptvplayerdemo.ui.vm.HomeViewModel
 import cu.wilb3r.iptvplayerdemo.utils.*
 import dagger.hilt.android.AndroidEntryPoint
-import java.util.*
+import javax.inject.Inject
 
 @AndroidEntryPoint
-class HomeFragment : Fragment(), M3UItemAdapter.AdapterListener {
+class HomeFragment @Inject constructor(
+    val itemAdapter: ItemAdapter
+) : Fragment() {
     private val vm: HomeViewModel by viewModels()
     private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding!!
-    private var items = ArrayList<M3UItem>()
-    private var adapter: M3UItemAdapter? = null
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -32,28 +32,28 @@ class HomeFragment : Fragment(), M3UItemAdapter.AdapterListener {
         savedInstanceState: Bundle?
     ): View? {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        val view = binding.root
         initRecyclerView()
         initViewModel()
-        download("https://pastebin.com/raw/ZzGTySZE")
-        return view
+        itemAdapter.setOnItemClickListener {
+            onItemTap(it)
+        }
+        download("https://pastebin.com/raw/89S0bBCp")
+        return binding.root
     }
 
     private fun initRecyclerView() {
-        adapter = M3UItemAdapter(items, requireActivity(), this)
-        // binding.incRecycler.recyclerview.layoutManager = LinearLayoutManager(requireActivity())
-        binding.incRecycler.recyclerview.layoutManager = GridLayoutManager(requireActivity(), 3)
-        binding.incRecycler.recyclerview.adapter = adapter
-
+        binding.incRecycler.recyclerview.apply {
+            layoutManager = GridLayoutManager(requireContext(), 3)
+            binding.incRecycler.recyclerview.adapter = itemAdapter
+        }
     }
 
     private fun initViewModel() {
         vm.playListLiveData.observe(viewLifecycleOwner, Observer {
-
-            items.clear()
-            items.addAll(it.m3UItems)
-            adapter!!.notifyDataSetChanged()
+            itemAdapter.items = it.m3UItems
+            itemAdapter.notifyDataSetChanged()
             binding.progressBar.invisible()
+
         })
         vm.errorLiveData.observe(viewLifecycleOwner, Observer { it ->
             it.getContentIfNotHandled()?.let {
@@ -74,9 +74,8 @@ class HomeFragment : Fragment(), M3UItemAdapter.AdapterListener {
     }
 
 
-    override fun onItemTap(position: Int) {
-        println(items[position].mStreamURL)
-        PlayerActivity.newIntent(requireContext(), items[position].mStreamURL).also {
+    fun onItemTap(item: M3UItem) {
+        PlayerActivity.newIntent(requireContext(), item).also {
             startActivity(it)
         }
     }

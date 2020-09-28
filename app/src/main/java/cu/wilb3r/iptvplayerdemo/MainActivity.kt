@@ -1,53 +1,73 @@
- package cu.wilb3r.iptvplayerdemo
+package cu.wilb3r.iptvplayerdemo
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import androidx.fragment.app.Fragment
+import androidx.fragment.app.FragmentFactory
 import cu.wilb3r.iptvplayerdemo.databinding.ActivityMainBinding
 import cu.wilb3r.iptvplayerdemo.ui.fragments.FavFragment
 import cu.wilb3r.iptvplayerdemo.ui.fragments.HomeFragment
+import cu.wilb3r.iptvplayerdemo.ui.fragments.ItemsFragmentFactory
 import cu.wilb3r.iptvplayerdemo.ui.fragments.ProfileFragment
 import dagger.hilt.android.AndroidEntryPoint
+import javax.inject.Inject
 
- @AndroidEntryPoint
- class MainActivity : AppCompatActivity() {
+@AndroidEntryPoint
+class MainActivity : AppCompatActivity() {
     private lateinit var binding: ActivityMainBinding
+
+    @Inject
+    lateinit var fragmentFactory: ItemsFragmentFactory
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
+        supportFragmentManager.fragmentFactory = fragmentFactory
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
 
-        setFragment(HomeFragment(), "home")
+        setFragment(
+            supportFragmentManager.fragmentFactory.instantiate(
+                classLoader,
+                HomeFragment::class.java.name
+            ), "Home"
+        )
+
         binding.bottomNavigationView.setOnNavigationItemSelectedListener { item ->
             when (item.itemId) {
                 R.id.menu_home -> {
-                    setFragment(HomeFragment(), "home")
+                    setFragment(
+                        supportFragmentManager.fragmentFactory.instantiate(
+                            classLoader,
+                            HomeFragment::class.java.name
+                        ), "Home"
+                    )
                 }
                 R.id.menu_fav -> {
-                    setFragment(FavFragment(), "Fav")
+                    setFragment(
+                        supportFragmentManager.fragmentFactory.instantiate(
+                            classLoader,
+                            FavFragment::class.java.name
+                        ), "Fav"
+                    )
                 }
                 R.id.menu_profile -> {
-                    setFragment(ProfileFragment(), "profile")
+                    setFragment(
+                        supportFragmentManager.fragmentFactory.instantiate(
+                            classLoader,
+                            ProfileFragment::class.java.name
+                        ), "profile"
+                    )
                 }
             }
             true
         }
-
-        //setBudge(R.id.menu_fav, 9)
-
     }
 
-     private fun setFragment(fragment: Fragment, tag: String) {
-         supportFragmentManager.beginTransaction().apply {
-             replace(R.id.frgContainer, fragment, tag)
-             commit()
-         }
-     }
+    private fun setFragment(fragment: Fragment, tag: String) {
+        supportFragmentManager.beginTransaction().apply {
+            replace(R.id.frgContainer, fragment, tag)
+            commit()
+        }
+    }
 
-     fun setBudge(resourse: Int, count: Int) =
-         binding.bottomNavigationView.getOrCreateBadge(resourse).apply {
-             number = count
-             isVisible = true
-         }
 }

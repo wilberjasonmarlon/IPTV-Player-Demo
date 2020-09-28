@@ -16,6 +16,7 @@ buildscript {
         quickpermissions_version = '0.4.0'
         ktor_version = '1.3.7'
         ktorclient_version = '1.2.5'
+        room_version = '2.2.5'
     }
     repositories {
         google()
