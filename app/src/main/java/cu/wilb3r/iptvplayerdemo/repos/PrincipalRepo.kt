@@ -40,18 +40,12 @@ class PrincipalRepo @Inject constructor(
     fun download(urlFile: String) {
         if(!file.exists())
             file.createNewFile()
-        //val ktorClient = HttpClient(Android)
-        val ktorClient = initKtorClient()
         Coroutines.io {
-            ktorClient.download(file, urlFile).collect { result ->
+            initKtorClient().download(file, urlFile).collect { result ->
                 Coroutines.main {
                     when (result) {
                         is Result.Success -> {
-//                            BufferedReader(InputStreamReader(FileInputStream(file)))
-//                                .readText().also {
-//                                    _liveData.postValue(M3UParser.parse(it))
-//                                }
-                            BufferedReader(InputStreamReader(context.assets.open("iptvsample")))
+                            BufferedReader(InputStreamReader(FileInputStream(file)))
                                 .readText().also {
                                     _liveData.postValue(M3UParser.parse(it))
                                 }
