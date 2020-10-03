@@ -13,9 +13,10 @@ import cu.wilb3r.iptvplayerdemo.R
 import cu.wilb3r.iptvplayerdemo.data.M3UItem
 import cu.wilb3r.iptvplayerdemo.databinding.ItemBinding
 import java.util.*
+import javax.inject.Inject
 import kotlin.collections.ArrayList
 
-class M3UItemAdapter (
+class M3UItemAdapter @Inject constructor(
     var items: ArrayList<M3UItem>,
     var context: Context,
     var listener: AdapterListener
